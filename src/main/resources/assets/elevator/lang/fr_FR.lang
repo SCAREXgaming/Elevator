@@ -1,0 +1,17 @@
+# Blocks
+tile.elevator_ElevatorBlockController.name=Elevateur contrôleur
+tile.elevator_ElevatorBlock.name=Bloc élévateur
+
+# Gui
+elevator.gui.button.modifyPlayerList=Modifier la liste des joueurs
+elevator.gui.button.addPlayer=Ajouter joueur
+elevator.gui.button.removePlayer=Retirer joueur
+elevator.gui.general.include=Inclure
+elevator.gui.general.exclude=Exclure
+elevator.gui.button.autoOpen=Ouverture auto : %s
+elevator.gui.general.false=Faux
+elevator.gui.general.true=Vrai
+elevator.gui.general.energy=Energie
+
+# Chat
+elevator.chat.notEnoughEnergy=Vous n'avez pas assez d'énergie

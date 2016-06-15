@@ -1,0 +1,16 @@
+[
+{
+  "modid": "elevator",
+  "name": "Elevator Mod",
+  "description": "A mod that adds elevators",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SCAREX"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["CoFHCore", "ThermalExpansion", "ThermalFoundation"]
+}
+]

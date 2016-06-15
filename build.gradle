@@ -1,0 +1,127 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+version = mod_version
+group= "fr.scarex.elevator"
+archivesBaseName = "elevator"
+
+minecraft {
+    version = "${mc_version}-${forge_version}"
+    runDir = "eclipse"
+    
+    replace "@VERSION@", project.version
+    replace "@DEBUG@", "couscous"
+    replaceIn "Elevator.java"
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    inputs.property "cofhcore_version", project.cofhcore_version
+    inputs.property "tf_version", project.tf_version
+    inputs.property "te_version", project.te_version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version, 'cofhcore_version':project.cofhcore_version, 'tf_version':project.tf_version, 'te_version':project.te_version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+
+// Dependencies
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'ProfMobius Repo'
+        url "http://mobiusstrip.eu/maven/"
+    }
+    maven {
+        name 'RX14'
+        url "http://mvn.rx14.co.uk/repo/"
+    }
+    maven {
+        name = "Tterrag"
+        url = "http://maven.tterrag.com/"
+    }
+    ivy {
+        name "CoFHCore"
+        artifactPattern 'http://addons-origin.cursecdn.com/files/2283/118/[module]-[revision].[ext]'
+    }
+    ivy {
+        name "ThermalFoundation"
+        artifactPattern 'http://addons-origin.cursecdn.com/files/2300/429/[module]-[revision].[ext]'
+    }
+    ivy {
+        name "ThermalExpansion"
+        artifactPattern 'http://addons-origin.cursecdn.com/files/2282/512/[module]-[revision].[ext]'
+    }
+    ivy {
+        name "ThermalDynamics"
+        artifactPattern 'http://addons-origin.cursecdn.com/files/2300/431/[module]-[revision].[ext]'
+    }
+    ivy {
+        name "MineFactoryReloaded"
+        artifactPattern 'http://addons-origin.cursecdn.com/files/2233/906/[module]-[revision].[ext]'
+    }
+    ivy {
+        name "BuildCraft"
+        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
+    }
+}
+
+dependencies {
+    compile "codechicken:CodeChickenCore:${mc_version}-${ccc_version}:dev"
+    compile "codechicken:CodeChickenLib:${mc_version}-${ccl_version}:dev"
+    compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
+    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}"
+    compile "cofh:CoFHCore:[${mc_version}]${cofhcore_version}"
+    compile "cofh:ThermalFoundation:[${mc_version}]${tf_version}"
+    compile "cofh:ThermalExpansion:[${mc_version}]${te_version}"
+    compile "cofh:ThermalDynamics:[${mc_version}]${td_version}"
+    compile "inventorytweaks:InventoryTweaks:${invtweaks_version}"
+}
+
+// Artifacts
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives deobfJar
+    archives sourceJar
+    archives jar
+}
+
+tasks.assemble.dependsOn('deobfJar', 'sourceJar')
