@@ -1,4 +1,4 @@
-TERMES ET CONDITIONS
+TERMS AND CONDITIONS
 0. USED TERMS
 MOD - Modification, plugin, a piece of code which modify Minecraft, which adds, changes or deletes some fonctions of the game.
 MOJANG - Mojang AB.
