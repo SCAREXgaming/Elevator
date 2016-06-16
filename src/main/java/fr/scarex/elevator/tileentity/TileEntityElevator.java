@@ -112,7 +112,6 @@ public class TileEntityElevator extends AbstractElevatorTileEntity implements IT
     @Override
     public boolean canAccess(EntityPlayer player) {
         if (this.getController() == null) return false;
-        if (!this.isUseableByPlayer(player)) return false;
         UUID u = player.getUniqueID();
         if (this.isOwner(u)) return true;
         if (this.getController().canAccess(player)) {
@@ -159,7 +158,7 @@ public class TileEntityElevator extends AbstractElevatorTileEntity implements IT
     @Override
     public TileEntityElevatorController getController() {
         for (int i = 0; i < 256; i++) {
-            if (i != this.yCoord && this.worldObj.getTileEntity(this.xCoord, i, this.zCoord) instanceof TileEntityElevatorController) return (TileEntityElevatorController) this.worldObj.getTileEntity(this.xCoord, i, this.zCoord);
+            if (i != this.yCoord && this.worldObj.getTileEntity(this.xCoord, i, this.zCoord) instanceof TileEntityElevatorController && ((TileEntityElevatorController) this.worldObj.getTileEntity(this.xCoord, i, this.zCoord)).isOwner(this.getOwner())) return (TileEntityElevatorController) this.worldObj.getTileEntity(this.xCoord, i, this.zCoord);
         }
         return null;
     }

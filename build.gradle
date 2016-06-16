@@ -146,7 +146,6 @@ github {
     repo = 'Elevator'
     token = privateConfig.github_token
     tagName = mod_version
-    body = privateConfig.changelog
     assets = [
         "build/libs/Elevator-${mod_version}.jar",
         "build/libs/Elevator-${mod_version}-sources.jar",

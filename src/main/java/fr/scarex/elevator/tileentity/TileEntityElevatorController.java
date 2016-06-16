@@ -94,7 +94,7 @@ public class TileEntityElevatorController extends AbstractElevatorTileEntityEner
             ArrayList<ITeleportationEntry> list = new ArrayList<ITeleportationEntry>();
             for (int i = 0; i < 256; i++) {
                 TileEntity tile = this.worldObj.getTileEntity(this.xCoord, i, this.zCoord);
-                if (tile instanceof ITeleportationEntry && ((tile instanceof IOwneable && ((IOwneable) tile).isOwner(player.getUniqueID())) || (tile instanceof IAccessible ? ((IAccessible) tile).canAccess(player) : true))) list.add((ITeleportationEntry) tile);
+                if (tile instanceof ITeleportationEntry && (tile instanceof IOwneable ? ((IOwneable) tile).isOwner(this.getOwner()) : true) && (tile instanceof IAccessible ? ((IAccessible) tile).canAccess(player) : true)) list.add((ITeleportationEntry) tile);
             }
             return list;
         }
@@ -182,7 +182,7 @@ public class TileEntityElevatorController extends AbstractElevatorTileEntityEner
     @Override
     public void writeExtraCompound(NBTTagCompound comp) {
         super.writeExtraCompound(comp);
-        
+
         comp.setBoolean("Whitelist", this.whitelist);
         NBTTagList nbtPlayerList = new NBTTagList();
         for (UUID uuid : this.playerList) {
@@ -197,7 +197,7 @@ public class TileEntityElevatorController extends AbstractElevatorTileEntityEner
     @Override
     public void readExtraCompound(NBTTagCompound comp) {
         super.readExtraCompound(comp);
-        
+
         this.whitelist = comp.getBoolean("Whitelist");
         NBTTagList nbtPlayerList = comp.getTagList("PlayerList", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < nbtPlayerList.tagCount(); i++) {
