@@ -1,5 +1,7 @@
 package fr.scarex.elevator.block;
 
+import cofh.thermalexpansion.block.simple.BlockFrame;
+import cpw.mods.fml.common.registry.GameRegistry;
 import fr.scarex.elevator.Elevator;
 import fr.scarex.elevator.tileentity.IAccessible;
 import fr.scarex.elevator.tileentity.IOwneable;
@@ -11,12 +13,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author SCAREX
@@ -35,6 +38,11 @@ public class ElevatorBlock extends AbstractBlockDismantleable
     @Override
     public String getName() {
         return "ElevatorBlock";
+    }
+
+    @Override
+    public void registerCrafts() {
+        GameRegistry.addRecipe(new ShapedOreRecipe(this, "XYX", "YZY", "XYX", 'X', Items.ender_pearl, 'Y', "dustRedstone", 'Z', BlockFrame.frameMachineResonant));
     }
 
     @Override

@@ -94,7 +94,7 @@ public class ContainerElevatorBlock extends Container implements IWhitelistConta
     @Override
     public ItemStack slotClick(int slot, int data, int action, EntityPlayer player) {
         if (slot >= 0 && slot < this.inventorySlots.size() && this.getSlot(slot) instanceof AbstractSlotFilter && ((AbstractSlotFilter) this.getSlot(slot)).deleteSlotOnClick(data, action, player)) {
-            if (player.inventory.getItemStack() != null)
+            if (player.inventory.getItemStack() != null && this.getSlot(slot).isItemValid(player.inventory.getItemStack()))
                 this.getSlot(slot).putStack(player.inventory.getItemStack());
             else
                 this.getSlot(slot).putStack(null);
