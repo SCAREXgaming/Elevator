@@ -147,8 +147,8 @@ github {
     token = privateConfig.github_token
     tagName = mod_version
     assets = [
-        "build/libs/Elevator-${mod_version}.jar",
-        "build/libs/Elevator-${mod_version}-sources.jar",
-        "build/libs/Elevator-${mod_version}-dev.jar"
+        "build/libs/${archivesBaseName}-${mod_version}.jar",
+        "build/libs/${archivesBaseName}-${mod_version}-sources.jar",
+        "build/libs/${archivesBaseName}-${mod_version}-dev.jar"
     ]
 }
