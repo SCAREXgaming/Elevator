@@ -28,7 +28,10 @@ minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "eclipse"
     
-    replace "@VERSION@", project.version
+    project.ext.getProperties().each { k, v ->
+        replace "@${k.toUpperCase()}@", v
+    }
+    
     replace "@DEBUG@", "couscous"
     replaceIn "Elevator.java"
 }

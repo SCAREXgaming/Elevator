@@ -39,13 +39,14 @@ import net.minecraft.util.StatCollector;
  * @author SCAREX
  *
  */
-@Mod(modid = Elevator.MODID, name = Elevator.NAME, version = Elevator.VERSION)
+@Mod(modid = Elevator.MODID, name = Elevator.NAME, version = Elevator.VERSION, dependencies = Elevator.DEPENDENCIES)
 public class Elevator
 {
     public static final String MODID = "elevator";
     public static final String NAME = "Elevator Mod";
-    public static final String VERSION = "@VERSION@";
+    public static final String VERSION = "@MOD_VERSION@";
     public static final boolean DEBUG = "@DEBUG@" == "@" + "DEBUG@";
+    public static final String DEPENDENCIES = Elevator.DEBUG ? "" : "required-after:CoFHCore@[" + "@MC_VERSION@" + "R" + "@COFHCORE_VERSION_MAJOR@" + ",);required-after:ThermalExpansion@[" + "@MC_VERSION@" + "R" + "@TE_VERSION_MAJOR@" + ",);";
 
     @SidedProxy(serverSide = "fr.scarex.elevator.CommonProxy", clientSide = "fr.scarex.elevator.client.ClientProxy")
     public static CommonProxy PROXY;
