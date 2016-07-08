@@ -153,6 +153,6 @@ github {
         "build/libs/${archivesBaseName}-${mod_version}.jar",
         "build/libs/${archivesBaseName}-${mod_version}-sources.jar",
         "build/libs/${archivesBaseName}-${mod_version}-dev.jar",
-        "CHANGELOG.md"
+        "CHANGELOG.html"
     ]
 }
