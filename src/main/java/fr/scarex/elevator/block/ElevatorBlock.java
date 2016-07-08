@@ -2,6 +2,8 @@ package fr.scarex.elevator.block;
 
 import cofh.thermalexpansion.block.simple.BlockFrame;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import fr.scarex.elevator.Elevator;
 import fr.scarex.elevator.tileentity.IAccessible;
 import fr.scarex.elevator.tileentity.IOwneable;
@@ -27,7 +29,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  */
 public class ElevatorBlock extends AbstractBlockDismantleable
 {
-    public IIcon[] icons = new IIcon[2];
+    public IIcon[] icons = new IIcon[8];
 
     protected ElevatorBlock() {
         super(Material.rock);
@@ -75,17 +77,21 @@ public class ElevatorBlock extends AbstractBlockDismantleable
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
         if (world.getTileEntity(x, y, z) instanceof TileEntityElevator && ((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1) != null && Block.getBlockFromItem(((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1).getItem()) != Blocks.air)
             return Block.getBlockFromItem(((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1).getItem()).getIcon(side, ((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1).getItemDamage());
+        else if (world.getTileEntity(x, y, z) instanceof TileEntityElevator && ((TileEntityElevator) world.getTileEntity(x, y, z)).getController() != null)
+            return this.icons[4 + (side == 4 || side == 5 ? 2 : (side == 3 || side == 2 ? 3 : side))];
         else
-            return this.icons[side == 1 ? 0 : 1];
+            return this.getIcon(side, 0);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int meta) {
-        return this.icons[side == 1 ? 0 : 1];
+        return this.icons[side == 4 || side == 5 ? 2 : (side == 3 || side == 2 ? 3 : side)];
     }
 
     @Override
@@ -93,12 +99,20 @@ public class ElevatorBlock extends AbstractBlockDismantleable
         if (!world.isRemote && entity instanceof EntityPlayer && world.getTileEntity(x, y, z) instanceof TileEntityElevator && ((TileEntityElevator) world.getTileEntity(x, y, z)).isAutoOpen() && ((IAccessible) world.getTileEntity(x, y, z)).canAccess((EntityPlayer) entity)) ((EntityPlayer) entity).openGui(Elevator.INSTANCE, 0, world, x, y, z);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister reg) {
-        this.icons[0] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_up");
-        this.icons[1] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_side");
+        this.icons[0] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_bottom_off");
+        this.icons[1] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_top_off");
+        this.icons[2] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_side_off");
+        this.icons[3] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_side_off_nowindow");
+        this.icons[4] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_bottom_on");
+        this.icons[5] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_top_on");
+        this.icons[6] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_side_on");
+        this.icons[7] = reg.registerIcon(Elevator.MODID + ":" + this.getName() + "_side_on_nowindow");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
         if (world.getTileEntity(x, y, z) instanceof TileEntityElevator && ((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1) != null && Block.getBlockFromItem(((TileEntityElevator) world.getTileEntity(x, y, z)).getStackInSlot(1).getItem()) != Blocks.air)

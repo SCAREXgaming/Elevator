@@ -8,7 +8,7 @@
   "url": "",
   "updateUrl": "",
   "authorList": ["SCAREX"],
-  "credits": "",
+  "credits": "Whathefrench for the elevator texture",
   "logoFile": "",
   "screenshots": [],
   "dependencies": ["CoFHCore", "ThermalExpansion", "ThermalFoundation"]
