@@ -60,4 +60,4 @@ gradle/
 bin/
 .settings/
 private.properties
-CHANGELOG.md
+CHANGELOG.html

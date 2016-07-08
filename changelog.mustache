@@ -1,26 +1,26 @@
 {{#tags}}
-## {{name}}
+<h1>{{name}}</h1>
  {{#issues}}
   {{#hasIssue}}
    {{#hasLink}}
-### {{name}} [{{issue}}]({{link}}) {{title}}
+<h3>{{name}} [{{issue}}]({{link}}) {{title}}</h3>
    {{/hasLink}}
    {{^hasLink}}
-### {{name}} {{issue}} {{title}}
+<h3>{{name}} {{issue}} {{title}}</h3>
    {{/hasLink}}
   {{/hasIssue}}
   {{^hasIssue}}
-### {{name}}
+<h3>{{name}}</h3>
   {{/hasIssue}}
 
+  <h2>Commits :</h2>
   {{#commits}}
-**{{{messageTitle}}}**
+<a href="https://github.com/SCAREXgaming/SCLib/commit/{{hash}}"><h3>{{{messageTitle}}} by {{authorName}} at {{commitTime}}</h3></a>
 
-{{#messageBodyItems}}
- * {{.}} 
+<ul>{{#messageBodyItems}}
+ <li>{{.}}</li>
 {{/messageBodyItems}}
-
-[{{hash}}](https://github.com/SCAREXgaming/SCLib/commit/{{hash}}) {{authorName}} *{{commitTime}}*
+</ul>
 
   {{/commits}}
 
