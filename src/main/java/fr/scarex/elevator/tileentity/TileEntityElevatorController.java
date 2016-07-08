@@ -13,6 +13,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author SCAREX
@@ -204,5 +205,12 @@ public class TileEntityElevatorController extends AbstractElevatorTileEntityEner
             NBTTagCompound compPlayer = nbtPlayerList.getCompoundTagAt(i);
             this.playerList.add(new UUID(compPlayer.getLong("UUIDMost"), compPlayer.getLong("UUIDLeast")));
         }
+    }
+
+    @Override
+    public int receiveEnergy(ForgeDirection dir, int amount, boolean simulate) {
+        int i = super.receiveEnergy(dir, amount, simulate);
+        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        return i;
     }
 }
